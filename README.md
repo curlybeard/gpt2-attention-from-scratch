@@ -4,9 +4,9 @@ gpt 2 attention from scratch using pytorch, based on transformer architecture ou
 Trained on tinystories dataset (https://huggingface.co/datasets/roneneldan/TinyStories) to learn vocabularly and semantic representations of language using self supervised learning ie. masked auto regression
 
 Causal self attention mechanism:
-Query = What this token is looking for
-Key = What information this token contains
-Value = Actual content of the token that will be passed if Q and K match
+- Query = What this token is looking for
+- Key = What information this token contains
+- Value = Actual content of the token that will be passed if Q and K match
 
 How it works:
 - initialize the query, key and value matrices from the input
