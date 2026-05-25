@@ -54,7 +54,7 @@ class CausalSelfAttention(nn.Module):
         self.n_embed = config.n_embed
 
         #creates a 1024x1024 lower triangular matrix of ones (torch.tril)
-        #tokens can only attend to previosu tokens, not previous ones
+        #tokens can only attend to previosu tokens, not future ones
         self.register_buffer("bias", torch.tril(torch.ones(config.block_size, config.block_size)).view(1, 1, config.block_size, config.block_size))
 
     def forward(self, x):
@@ -66,7 +66,7 @@ class CausalSelfAttention(nn.Module):
         qkv = self.c_attn(x)
         #separate into three separate tensors [B, T, 768]
         q, k, v = qkv.split(self.n_embed, dim=2)
-        #split 678 dimensions into 12 heads of 64 dimensions each
+        #split 768 dimensions into 12 heads of 64 dimensions each
         #[B, T, 12, 64] -> Transpose -> [B, 12, T, 64]
         k = k.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
         q = q.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
